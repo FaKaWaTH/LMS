@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>LMS - Iniciar sesión</title>
+
+	<style>
+    	:root {
+            --bg: #141515;
+            --bg-2: #1a2320;
+            --surface: #364540;
+            --surface-2: #202b2b;
+            --border: #556b63;
+            --text: #f1f9f6;
+            --muted: #9ba3a8;
+            --accent: #678088;
+            --accent-soft: #8fb3a7;
+            box-sizing: border-box;
+        }
+
+        * {
+            box-sizing: inherit;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: sans-serif;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: serif;
+            font-weight: 600;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .page {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+        }
+
+        .promo {
+            background: var(--bg-2);
+            border-right: 1px solid var(--border);
+            padding: 56px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: serif;
+            font-weight: 600;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .promo-body {
+            max-width: 420px;
+        }
+
+        .promo-body h1 {
+            font-size: clamp(1.7rem, 3vw, 2.3rem);
+            line-height: 1.25;
+            margin-bottom: 18px;
+        }
+
+        .promo-body p {
+            color: var(--muted);
+            font-size: 0.98rem;
+        }
+
+        .promo-list li {
+            display: flex;
+            gap: 12px;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .promo-list li::before {
+            content: "—";
+            color: var(--accent-soft);
+        }
+
+        .authside {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 56px 32px;
+        }
+
+        .authcard {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .authcard h2 {
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+        }
+
+        .authcard > p {
+            color: var(--muted);
+            font-size: 0.92rem;
+            margin-bottom: 28px;
+        }
+
+        .form-error {
+            background: rgba(201, 127, 127, 0.12);
+            border: 1px solid #8A6060;
+            color: #E3A9A9;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-bottom: 18px;
+        }
+
+        .field {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.84rem;
+            color: var(--muted);
+            margin-bottom: 7px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 8px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 0.94rem;
+            font-family: sans-serif;
+            transition: border-color 0.15s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent-soft);
+        }
+
+        input::placeholder {
+            color: #6B7A75;
+        }
+
+        .pw-wrap {
+            position: relative;
+        }
+
+        .pw-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: 0.78rem;
+            cursor: pointer;
+        }
+
+        .pw-toggle:hover {
+            color: var(--text);
+        }
+
+        .row-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+            font-size: 0.85rem;
+        }
+
+        .row-between a {
+            color: var(--accent-soft);
+        }
+
+        .row-between a:hover {
+            text-decoration: underline;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted);
+        }
+
+        .remember input {
+            width: auto;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 13px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: filter 0.15s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #0E1414;
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.12);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 26px 0;
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .switch {
+            text-align: center;
+            font-size: 0.88rem;
+            color: var(--muted);
+            margin-top: 24px;
+        }
+
+        .switch a {
+            color: var(--accent-soft);
+            font-weight: 600;
+        }
+
+        .switch a:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            color: #C97F7F;
+            font-size: 0.82rem;
+            margin-top: 6px;
+            display: none;
+        }
+	</style>
+</head>
+<body>
+    <div class="page">
+        <div class="promo">
+            <div class="logo">LMS</div>
+            <div class="promo-body">
+                <h1>Publica lo que sabés o aprendé lo que te falta</h1>
+            </div>
+            <ul class="promo-list">
+                <li>Cursos gratuitos, sin limite de inscrpciones</li>
+                <li>Tu pogreso se guarda automáticamente</li>
+            </ul>
+        </div>
+
+        <div class="authside">
+            <div class="authcard">
+                <h2>Bienvenido de nuevo</h2>
+                <p>Ingresá para continuar donde quedaste</p>
+
+                {% if let Some(msg) = error_msg %}
+                    <div class="form-error">{{ msg }}</div>
+                {% endif %}
+
+                <form id="loginForm" method="POST" action="/login">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+
+                    <div class="field">
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" id="email" name="email" placeholder="persona@contacto.com" required/>
+                    </div>
+
+                    <div class="field">
+                        <label for="password">Contraseña</label>
+                        <div class="pw-wrap">
+                            <input type="password" id="password" name="password" placeholder="••••••••" required />
+                            <button type="button" class="pw-toggle" id="pwToggle">Mostrar</button>
+                        </div>
+                    </div>
+
+                    <div class="row-between">
+                        <label class="remember"><input type="checkbox" /> Recordar</label>
+                        <a href="#">¿Olvidaste tu contraseña?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                </form>
+
+                <div class="switch">¿No tienes cuenta? <a href="/register">Creá una</a></div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const pwInput = document.getElementById("password");
+        const pwToogle = document.getElementById("pwToggle");
+
+        pwToogle.addEventListener("click", () => {
+          const isPw = pwInput.type === "password";
+
+          pwInput.type = isPw ? "text" : "password";
+          pwToogle.textContent = isPw ? "Ocultar" : "Mostrar";
+        });
+    </script>
+</body>
+</html>

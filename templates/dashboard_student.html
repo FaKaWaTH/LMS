@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>LMS - Mi panel</title>
+
+	<style>
+    	:root {
+            --bg: #141515;
+            --bg-2: #1a2320;
+            --surface: #364540;
+            --surface-2: #202b2b;
+            --border: #556b63;
+            --text: #f1f9f6;
+            --muted: #9ba3a8;
+            --accent: #678088;
+            --accent-soft: #8fb3a7;
+            --sidebar-w:260px;
+            box-sizing: border-box;
+        }
+
+        * {
+            box-sizing: inherit;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: sans-serif;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: serif;
+            font-weight: 600;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .sidebar {
+            width: var(--sidebar-w);
+            background: var(--bg-2);
+            border-right: 1px solid var(--border);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-logo {
+            padding: 22px 20px;
+            border-bottom: 1px solid var(--border);
+            font-family: serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .sidebar-section {
+            padding: 18px 14px 0;
+        }
+
+        .sidebar-label {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.1rem;
+            text-transform: uppercase;
+            color: var(--muted);
+            padding: 0 8px;
+            margin-bottom: 3px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 10px;
+            border-radius: 8px;
+            color: var(--muted);
+            font-size: 0.88rem;
+            margin-bottom: 3px;
+        }
+
+        .sidebar-link:hover {
+            background: var(--surface-2);
+            color: var(--text);
+        }
+
+        .sidebar-link.active {
+            background: rgba(143, 179, 167, 0.12);
+            color: var(--accent-soft);
+            font-weight: 500;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding: 14px;
+            border-top: 1px solid var(--border);
+        }
+
+        .user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #0E1414;
+            font-size: 0.72rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .user-name {
+            font-size: 0.82rem;
+            font-weight: 500;
+        }
+
+        .user-role {
+            font-size: 0.7rem;
+            color: var(--muted);
+        }
+
+        .logout-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.78rem;
+            background: transparent;
+        }
+
+        .logout-btn:hover {
+            border-color: #8A5050;
+            color: #Cf9A9A;
+        }
+
+        main {
+            margin-left: var(--sidebar-w);
+            padding: 36px 40px;
+            overflow: hidden;
+        }
+
+        .topbar {
+            font-size: 0.84rem;
+            color: var(--muted);
+            margin-bottom: 28px;
+        }
+
+        .welcome {
+            background: var(--bg-2);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px 36px;
+            margin-bottom: 36px;
+            position: relative;
+        }
+
+        .welcome::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(143, 179, 167, 0.14), transparent 70%);
+        }
+
+        .welcome h1 {
+            font-size: 1.8rem;
+            margin-bottom: 4px;
+        }
+
+        .welcome p {
+            color: var(--muted);
+            font-size: 0.92rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+        }
+
+        .section-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .section-row h2 {
+            font-size: 1.2rem;
+        }
+
+        .link-muted {
+            font-size: 0.84rem;
+            color: var(--accent-soft);
+        }
+
+        .link-muted:hover {
+            text-decoration: underline;
+        }
+
+        .empty {
+            background: var(--surface-2);
+            border: 1px dashed var(--border);
+            border-radius: 12px;
+            padding: 34px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        @media (max-width: 860px) {
+            .sidebar { display: none; }
+            .main {
+                margin-left: 0;
+                padding: 24px 20px;
+            }
+        }
+	</style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-logo">LMS</div>
+        <div class="sidebar-section">
+            <div class="sidebar-label">Navegación</div>
+            <a href="/dashboard" class="sidebar-link active">Panel general</a>
+            <a href="" class="sidebar-link">Explorar</a>
+            <a href="" class="sidebar-link">...</a>
+        </div>
+        <div class="sidebar-bottom">
+            <div class="user">
+                <div class="avatar">{{ initials }}</div>
+                <div>
+                    <div class="user-name">{{ user_name }}</div>
+                    <div class="user-role">Estudiante</div>
+                </div>
+                <form method="POST" action="/logout">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+                    <button type="submit" class="logout-btn">Cerrar sesión</button>
+                </form>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main">
+        <div class="welcome">
+            <h1>Hola, {{ user_name }}</h1>
+            <p>Bienvenido/a de nuevo</p>
+        </div>
+
+        <div class="section-row">
+            <h2>Continuar aprendiendo</h2>
+            <a href="" class="link-muted">Ver catálogo</a>
+        </div>
+
+        <div class="section-row">
+            <h2>Completados</h2>
+        </div>
+
+        <div class="empty">Todavía no completate ningún curso</div>
+    </main>
+
+    <script></script>
+</body>
+</html>

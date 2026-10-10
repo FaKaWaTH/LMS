@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMS</title>
+</head>
+    <style>
+        :root {
+            --bg: #141515;
+            --bg-2: #1a2320;
+            --surface: #364540;
+            --surface-2: #202b2b;
+            --border: #556b63;
+            --text: #f1f9f6;
+            --muted: #9ba3a8;
+            --accent: #678088;
+            --accent-soft: #8fb3a7;
+            box-sizing: border-box;
+        }
+
+        * {
+            box-sizing: inherit;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: sans-serif;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: serif;
+            font-weight: 600;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .wrap {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        header {
+            position: sticky;
+            z-index: 20;
+            background: rgba(20, 21, 21, 0.85);
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 24px;
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: serif;
+            font-weight: 600;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navlinks {
+            display: flex;
+            gap: 32px;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .navlinks a:hover {
+            color: var(--text);
+        }
+
+        .cta-small {
+            padding: 9px 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .cta-small:hover {
+            border-color: var(--accent-soft);
+        }
+
+        .cta-2-small {
+            padding: 9px 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            font-size: 0.88rem;
+            color: #0E1414;
+            background: var(--accent);
+            font-weight: 600;
+        }
+
+        .cta-2-small:hover {
+            filter: brightness(1.12);
+        }
+
+        .hero {
+            padding: 100px 0 80px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 56px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            color: var(--accent-soft);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.15;
+            margin-bottom: 22px;
+            max-width: 520px;
+        }
+
+        .hero p {
+            color: var(--muted);
+            font-size: 1.05rem;
+            max-width: 460px;
+            margin-bottom: 30px;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 13px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition:
+                filter 0.15s ease,
+                border-color 0.15s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #0E1414;
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.12);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--accent-soft);
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+        }
+
+        .lesson-mock {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            padding: 0 16px;
+        }
+
+        .tab {
+            padding: 14px 16px;
+            font-size: 0.85rem;
+            color: var(--muted);
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .tab .active {
+            color: var(--text);
+            border-color: var(--accent-soft);
+        }
+
+        .tab-body {
+            padding: 22px;
+            min-height: 220px;
+        }
+
+        .video-mock {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .video-bar {
+            height: 140px;
+            border-radius: 8px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: var(--accent-soft);
+        }
+
+        .progress-line {
+            height: 4px;
+            background: var(--surface-2);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-line span {
+            display: block;
+            height: 100%;
+            width: 62%;
+            background: var(--accent-soft);
+        }
+
+        .read-mock p {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .read-mock .hl {
+            background: rgba(143, 179, 167, 0.18);
+            padding: 1px 4px;
+            border-radius: 3px;
+            color: var(--text);
+        }
+
+        section {
+            padding: 90px 0;
+        }
+
+        .section-head {
+            max-width: 560px;
+            margin-bottom: 52px;
+        }
+
+        .section-head h2 {
+            font-size: clamp(1.5rem, 3vw, 2.1rem);
+            margin-bottom: 14px;
+        }
+
+        .section-head p {
+            color: var(--muted);
+            font-size: 1rem;
+        }
+
+        .cards3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .card {
+            padding: 28px;
+        }
+
+        .card .icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+            font-size: 1rem;
+            background: var(--surface-2);
+            color: var(--accent-soft);
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .step {
+            padding: 24px 20px;
+        }
+
+        .step .num {
+            font-family: serif;
+            font-size: 0.85rem;
+            color: var(--accent-soft);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .step h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .step p {
+            color: var(--muted);
+            font-size: 0.86rem;
+        }
+
+        .split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 56px;
+            align-items: center;
+        }
+
+        .split h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 16px;
+            max-width: 420px;
+        }
+
+        .split p {
+            color: var(--muted);
+            margin-bottom: 20px;
+            max-width: 420px;
+        }
+
+        .checklist {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 26px;
+        }
+
+        .checklist li {
+            color: var(--muted);
+            font-size: 0.92rem;
+            display: flex;
+            gap: 10px;
+        }
+
+        .checklist li::before {
+            content: "—";
+            color: var(--accent-soft);
+        }
+
+        .dash {
+            padding: 24px;
+        }
+
+        .dash-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .dash-title {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .metric {
+            font-family: serif;
+            font-size: 1.5rem;
+            color: var(--accent-soft);
+        }
+
+        .bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            height: 120px;
+            margin-top: 10px;
+        }
+
+        .bar {
+            flex: 1;
+            border-radius: 4px 4px 0 0;
+            background: var(--surface-2);
+            position: relative;
+        }
+
+        .bar.fill {
+            background: var(--accent-soft);
+        }
+
+        .bar.drop {
+            background: var(--accent);
+        }
+
+        .bar-label {
+            position: absolute;
+            bottom: -22px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.68rem;
+            color: var(--muted);
+        }
+
+        .final {
+            padding: 56px 60px;
+        }
+
+        .final h2 {
+            font-size: clamp(1.4rem, 3vw, 1.9rem);
+            max-width: 520px;
+        }
+
+        .final p {
+            color: var(--muted);
+            margin-top: 10px;
+        }
+
+        @media (max-width: 820px) {
+            .hero-grid,
+            .split {
+                grid-template-columns: 1fr;
+            }
+            .cards3 {
+                grid-template-columns: 1fr;
+            }
+            .steps {
+                grid-template-columns: 1fr 1fr;
+            }
+            .navlinks {
+                display: none;
+            }
+            .final {
+                padding: 36px;
+            }
+        }
+    </style>
+<body>
+    <header>
+        <nav>
+            <div class="logo">LMS</div>
+            <div class="navlinks">
+                <a href="#how">Cómo se aprende</a>
+                <a href="#progress">Cómo avanzás</a>
+                <a href="#teachers">Para docentes</a>
+            </div>
+            <div>
+                <a href="/login" class="cta-small">Inicia sesión</a>
+                <a href="/register" class="cta-2-small">Registrate</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="wrap hero-grid">
+            <div>
+                <div class="eyebrow">Aprendizaje abierto, sin costo</div>
+                <h1>Aprendé varias cosas a la vez, a tu ritmo y retomá justo donde lo dejaste</h1>
+                <p>Una plataforma dodne profesionales publicas cursos gratuitos con video, lectura y ejercicios y tu avanzas a tu ritmo</p>
+                <div class="hero-ctas">
+                    <a href="#" class="btn btn-primary">Explorar catálogo</a>
+                    <a href="#" class="btn btn-ghost">Quiero enseñar</a>
+                </div>
+            </div>
+
+            <div class="panel lesson-mock">
+                <div class="tabs">
+                    <div class="tab" data-tab="video">Video</div>
+                    <div class="tab" data-tab="lectura">Lectura</div>
+                    <div class="tab" data-tab="codigo">Código</div>
+                </div>
+
+                <div class="tab-body">
+                    <div class="tab-content" id="content-video" style="display: none;">
+                        <div class="video-mock">
+                            <div class="video-bar">▶</div>
+                            <div class="progress-line"><span></span></div>
+                            <div style="color: var(--muted); font-size: 0.8rem;;">Retomando en el minuto 6:07 de 14:47</div>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="content-lectura" style="display: none;">
+                        <div class="read-mock">
+                            <p>Un <span class="hl">closure</span> en Rust captura variables de su entorno. A diferencia de las funciones, puede referenciar el contexto donde fue definido.</p>
+                            <p>Esto es útil cuando necesitás pasar comportamiento como dato por ejemplom en callbacks o iteradores.</p>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="content-codigo" style="display: block">
+                        <div class="code-demo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how">
+        <div class="wrap">
+            <div class="section-head">
+                <h2>Una lección, tres formas de aprender</h2>
+                <p>
+                    Cada curso combina lo que hace falta para entender de
+                    verdad, no solo mirar.
+                </p>
+            </div>
+            <div class="cards3">
+                <div class="panel card">
+                    <div class="icon">▶</div>
+                    <h3>Video</h3>
+                    <p>
+                        Explicaciones grabadas por quien conoce el tema, con
+                        tu progreso guardado.
+                    </p>
+                </div>
+                <div class="panel card">
+                    <div class="icon">✎</div>
+                    <h3>Lectura</h3>
+                    <p>
+                        Material escrito para profundizar a tu propio ritmo,
+                        sin depender solo del video.
+                    </p>
+                </div>
+                <div class="panel card">
+                    <div class="icon">{ }</div>
+                    <h3></h3>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="progress">
+        <div class="wrap">
+            <div class="section-head">
+                <h2>Así se ve tu avance</h2>
+                <p>
+                    Pensado para que aprender varias cosas a la vez no
+                    signifique perder el orden.
+                </p>
+            </div>
+            <div class="steps">
+                <div class="panel step">
+                    <div class="num">01</div>
+                    <h3>Explorás el catálogo</h3>
+                    <p>
+                        Buscás por tema entre cursos gratuitos de distintas
+                        áreas.
+                    </p>
+                </div>
+                <div class="panel step">
+                    <div class="num">02</div>
+                    <h3>Te inscribes</h3>
+                    <p>
+                        En los que quieras, sin límite, puedes tener varios
+                        activos.
+                    </p>
+                </div>
+                <div class="panel step">
+                    <div class="num">03</div>
+                    <h3>Avanzás a tu ritmo</h3>
+                    <p>Video, lectura o código: el orden lo decides tu.</p>
+                </div>
+                <div class="panel step">
+                    <div class="num">04</div>
+                    <h3>Retomás cuando quieras</h3>
+                    <p>
+                        La plataforma recuerda exactamente dónde quedaste.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="teachers">
+        <div class="wrap split">
+            <div>
+                <h2>Publicá lo que sabés, y entendé qué funciona</h2>
+                <p>
+                    Como docente creas el curso con la estructura que
+                    quieras, y ves qué partes realmente ayudan a tus alumnos
+                    a mejorar su aprendizaje.
+                </p>
+                <ul class="checklist">
+                    <li>
+                        Cursos gratuitos, centrados en que el alumno aprenda
+                        de verdad
+                    </li>
+                    <li>Métricas de finalización por curso</li>
+                    <li>
+                        Identificás en qué lección se estanca la mayoría
+                    </li>
+                </ul>
+                <a href="#" class="btn btn-primary"
+                    >Crear mi primer curso</a
+                >
+            </div>
+            <div class="panel dash">
+                <div class="dash-row">
+                    <div class="dash-title">
+                        Finalización — Fundamentos de Rust
+                    </div>
+                    <div class="metric">68%</div>
+                </div>
+                <div class="bars">
+                    <div class="bar fill" style="height: 90%">
+                        <span class="bar-label">L1</span>
+                    </div>
+                    <div class="bar fill" style="height: 78%">
+                        <span class="bar-label">L2</span>
+                    </div>
+                    <div class="bar drop" style="height: 40%">
+                        <span class="bar-label">L3</span>
+                    </div>
+                    <div class="bar fill" style="height: 35%">
+                        <span class="bar-label">L4</span>
+                    </div>
+                    <div class="bar fill" style="height: 30%">
+                        <span class="bar-label">L5</span>
+                    </div>
+                </div>
+                <div style="margin-top: 30px;color: var(--muted);font-size: 0.8rem;">
+                    La mayoría de los abandonos ocurre en<strong style="color: var(--text)"> Lección 3 · Ownership</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="wrap">
+            <div class="final panel">
+                <h2>Tu próximo curso está a un clic, a tu ritmo.</h2>
+                <p>Sin costo, sin plazos que cumplir.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const tabs = document.querySelectorAll(".tab");
+        const contents = {
+            video: document.getElementById("content-video"),
+            lectura: document.getElementById("content-lectura"),
+            codigo: document.getElementById("content-codigo"),
+        };
+
+        tabs.forEach((tab) => {
+            tab.addEventListener("click", () => {
+                tabs.forEach((t) => t.classList.remove("active"));
+                tab.classList.add("active");
+
+                Object.values(contents).forEach((c) => (c.style.display = "none"),);
+
+                contents[tab.dataset.tab].style.display = "block";
+            });
+
+            const runBtn = document.getElementById("runBtn");
+            const outLine = document.getElementById("outLine");
+
+            if (runBtn) {
+                runBtn.addEventListener("click", () => {
+                    outLine.style.display = "block";
+                });
+            }
+        } );
+    </script>
+</body>
+</html>

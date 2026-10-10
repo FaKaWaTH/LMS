@@ -1,0 +1,2 @@
+-- Add migration script here
+ALTER TABLE users ADD COLUMN name VARCHAR(255) NOT NULL DEFAULT '';

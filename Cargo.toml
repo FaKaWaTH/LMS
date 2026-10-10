@@ -1,6 +1,36 @@
 [package]
-name = "LMS"
+name = "lms"
 version = "0.1.0"
 edition = "2024"
 
+[profile.dev]
+opt-level = 0
+debug = true
+
+[profile.dev.package."*"]
+opt-level = 3
+
+[profile.release]
+opt-level = 3
+lto = "off"
+debug = "line-tables-only"
+panic = "abort"
+strip = "none"
+codegen-units = 1
+
 [dependencies]
+axum = "0.8.9"
+tokio = { version = "1.53.1", features = ["full"] }
+askama = "0.16"
+sqlx = { version = "0.9.0", features = ["postgres", "runtime-tokio", "uuid", "chrono", "macros"] }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.151"
+tower-http = { version = "0.6.11", features = ["fs", "cors", "trace", "set-header"] }
+jsonwebtoken = { version = "11.1.0", features = ["rust_crypto"]}
+chrono = { version = "0.4.45", features = ["serde"] }
+uuid = { version = "1.26.1", features = ["v4", "serde"] }
+bcrypt = "0.19.3"
+askama_web = { version = "0.16.0", features = ["axum-0.8"] }
+tracing = "0.1.44"
+tracing-subscriber = { version= "0.3.23", features = ["env-filter"] }
+tower_governor = "0.8.0"
